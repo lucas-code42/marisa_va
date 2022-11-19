@@ -3,6 +3,7 @@ from time import sleep
 import speech_recognition as sr
 
 from __init__ import WELCOME_NEWS, DELAY, LISTEN_ME, QUICK_DELAY, READY_TO_LISTEN
+from src.jokes.jokes import create_joker
 from src.news.news import get_news
 from src.speak.speak import speak
 from src.weather_forecast.forecast import create_forecast
@@ -26,6 +27,15 @@ def run_weather_forecast() -> None:
     """
     speech = create_forecast()
     speak(speech)
+    return
+
+
+def run_joke() -> None:
+    """
+    Chama funcao de piadas
+    :return: None
+    """
+    speak(create_joker())
     return
 
 
@@ -56,7 +66,7 @@ if "__main__" == __name__:
                         continue
 
                     elif "piada" in phrase or "engraçado" in phrase or "engraçada" in phrase:
-                        speak("Função de arroto")
+                        run_joke()
                         continue
 
                 else:
