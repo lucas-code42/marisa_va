@@ -22,7 +22,7 @@ def run_news() -> None:
 
 def run_weather_forecast() -> None:
     """
-    Chama a funcão de previsão do tempo
+    Chama a função de previsão do tempo
     :return: None
     """
     speech = create_forecast()
