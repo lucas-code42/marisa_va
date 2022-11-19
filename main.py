@@ -5,6 +5,7 @@ import speech_recognition as sr
 from __init__ import WELCOME_NEWS, DELAY, LISTEN_ME, QUICK_DELAY, READY_TO_LISTEN
 from src.news.news import get_news
 from src.speak.speak import speak
+from src.weather_forecast.forecast import create_forecast
 
 
 def run_news() -> None:
@@ -15,6 +16,16 @@ def run_news() -> None:
     speech = get_news()
     for i in speech:
         speak(str(i))
+    return
+
+
+def run_weather_forecast() -> None:
+    """
+    Chama a funcão de previsão do tempo
+    :return: None
+    """
+    speech = create_forecast()
+    speak(speech)
     return
 
 
@@ -41,7 +52,7 @@ if "__main__" == __name__:
                         continue
 
                     elif "clima" in phrase or "tempo" in phrase or "temperatura" in phrase:
-                        speak("Função de clima ainda não foi desenvolvida!")
+                        run_weather_forecast()
                         continue
 
                     elif "piada" in phrase or "engraçado" in phrase or "engraçada" in phrase:
