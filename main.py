@@ -1,8 +1,21 @@
 from time import sleep
+
 import speech_recognition as sr
-from src.speak.speak import speak
+
 from __init__ import WELCOME_NEWS, DELAY, LISTEN_ME, QUICK_DELAY, READY_TO_LISTEN
 from src.news.news import get_news
+from src.speak.speak import speak
+
+
+def run_news() -> None:
+    """
+    Chama a função get news do pacote news, em seguida passa cada 'string' para função speak do pacote speak.
+    :return: None
+    """
+    speech = get_news()
+    for i in speech:
+        speak(str(i))
+    return
 
 
 if "__main__" == __name__:
@@ -19,18 +32,22 @@ if "__main__" == __name__:
                 sleep(QUICK_DELAY)
                 audio = microphone.listen(source)
                 phrase = microphone.recognize_google(audio, language="pt-br")
-                print(type(phrase))
-                if "marisa" or "Marisa" in phrase and "notícias" or "notícia" in phrase:
-                    news = get_news()
-                    for last_news in news:
-                        speak(str(last_news))
-                    continue
-                if "marisa" or "Marisa" in phrase and "clima" or "tempo" or "temperatura" in phrase:
-                    speak("Função de clima ainda não foi desenvolvida!")
-                    continue
-                if "marisa" or "Marisa" in phrase and "piada" or "engraçado" or "engraçada" in phrase:
-                    speak("Função de arroto")
-                    continue
+                print("--->", phrase)
+
+                if "marisa" in phrase or "Marisa" in phrase:
+
+                    if "notícias" in phrase or "notícia" in phrase:
+                        run_news()
+                        continue
+
+                    elif "clima" in phrase or "tempo" in phrase or "temperatura" in phrase:
+                        speak("Função de clima ainda não foi desenvolvida!")
+                        continue
+
+                    elif "piada" in phrase or "engraçado" in phrase or "engraçada" in phrase:
+                        speak("Função de arroto")
+                        continue
+
                 else:
                     speak("comando não foi processado, diga meu nome antes... Marisa")
                     continue
