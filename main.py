@@ -1,3 +1,5 @@
+# python3.8
+
 from time import sleep
 
 import speech_recognition as sr
